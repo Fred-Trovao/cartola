@@ -1,8 +1,16 @@
-angular.module("cartola").controller("cartolaCtrl", function($scope, cartolaAPI, sessionstorage) {
+angular.module("cartola", ['ui.bootstrap']).controller("cartolaCtrl", function($scope, cartolaAPI, sessionstorage, util) {
     $scope.app = "Lista Telefônica";
 
     var _mercado = {};
-
+    
+    $scope.exibirScoutsDefesa = true;
+    $scope.exibirScoutsAtaque = true;
+    $scope.exibirScoutsNegativos = true;
+    $scope.exibirScoutsPositivos = true;
+        
+    $scope.currentPage = 1; // keeps track of the current page
+    $scope.pageSize = 10; // holds the number of items per page
+ 
     function isEmpty(obj) {
 
 	// null and undefined are "empty"
@@ -53,5 +61,22 @@ angular.module("cartola").controller("cartolaCtrl", function($scope, cartolaAPI,
 	}
     };
 
+    $scope.ordenarPor = function(campo) {
+	$scope.criterioDeOrdenacao = function(atleta) {
+	    
+	    var valor = util.getObjectByPath(atleta, campo);
+	    
+	    return valor || 0;
+	};
+	$scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
+    };
+
     carregarMercado();
+}).filter('start', function () {
+    return function (input, start) {
+        if (!input || !input.length) { return; }
+
+        start = +start;
+        return input.slice(start);
+    };
 });
