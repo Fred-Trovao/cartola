@@ -1,1 +1,1 @@
-angular.module("cartola", []);
+var app = angular.module("cartola", ['ui.bootstrap']);

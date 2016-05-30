@@ -1,4 +1,4 @@
-angular.module("cartola").factory("util", function($http, config) {
+app.factory("util", function($http, config) {
 
     var _getObjectByPath = function(object, path) {
 	

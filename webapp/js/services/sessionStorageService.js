@@ -1,4 +1,4 @@
-angular.module("cartola").factory('sessionstorage', ['$window', function($window) {
+app.factory('sessionstorage', ['$window', function($window) {
 	  return {
 	    set: function(key, value) {
 	      $window.sessionStorage[key] = value;

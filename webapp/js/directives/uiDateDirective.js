@@ -1,4 +1,4 @@
-angular.module("listaTelefonica").directive("uiDate", function($filter) {
+app.directive("uiDate", function($filter) {
 	return {
 		require: "ngModel",
 		link: function(scope, element, attrs, ctrl) {

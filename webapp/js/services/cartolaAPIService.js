@@ -1,4 +1,4 @@
-angular.module("cartola").factory("cartolaAPI", function($http, config) {
+app.factory("cartolaAPI", function($http, config) {
 	
 	var _urlMercado = config.baseUrl + "atletas/mercado";
 	

@@ -1,4 +1,4 @@
-angular.module("cartola").filter("nullToZero", function() {
+app.filter("nullToZero", function() {
 	return function(input) {
 	    return input || 0;
 	};

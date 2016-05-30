@@ -73,19 +73,9 @@
 	    	<input type="checkbox" ng-model="exibirScoutsAtaque" />Exibir Scouts de Ataque
 	    </label>
 	    </div>
-	    <div class="form-group col-lg-3">
-	    <label class="checkbox-inline">
-	    	<input type="checkbox" ng-model="exibirScoutsNegativos" />Exibir Scouts Negativos
-	    </label>
-	    </div>
-	    <div class="form-group col-lg-3">
-	    <label class="checkbox-inline">
-	    	<input type="checkbox" ng-model="exibirScoutsPositivos" />Exibir Scouts Positivos
-	    </label>
-	    </div>
     </div>
     <div class="table-responsive">
-	    <table class="table table-striped table-bordered">
+	    <table class="table table-striped table-bordered table-condensed">
 	      <thead>
 	        <tr>
 	          <th>Clube</th>
@@ -93,95 +83,97 @@
 	          <th>Status</th>
 			  <th>Posição</th>
 	          <th><a href="" ng-click="ordenarPor('media_num')">Média</a></th>
-	          <th>RB</th>
-	          <th>FC</th>
-	          <th>GC</th>
-	          <th>CA</th>
-	          <th>CV</th>
-	          <th>SG</th>
-	          <th>DD</th>
-	          <th>DP</th>
-	          <th>GS</th>
-	          <th>FS</th>
-	          <th>PE</th>
-	          <th>A</th>
-	          <th>FT</th>
-	          <th>FD</th>
-	          <th>FF</th>
-	          <th><a href="" ng-click="ordenarPor('scout.G')">G</a></th>
-	          <th>I</th>
-	          <th>PP</th>	          
+	          <th title="Roubada de Bola: +1,7pts" ng-show="exibirScoutsDefesa">
+	          	<a href="" ng-click="ordenarPor('scout.RB')">RB</a>
+	          </th>
+	          <th title="Falta cometida: -0,5pts" ng-show="exibirScoutsDefesa"><a href="" ng-click="ordenarPor('scout.FC')">FC</a></th>
+	          <th title="Gol Contra: -6,0pts" ng-show="exibirScoutsDefesa"><a href="" ng-click="ordenarPor('scout.GC')">GC</a></th>
+	          <th title="Cartão Amarelo: -2,0pts" ng-show="exibirScoutsDefesa"><a href="" ng-click="ordenarPor('scout.CA')">CA</a></th>
+	          <th title="Cartão Vermelho: -5,0pts" ng-show="exibirScoutsDefesa"><a href="" ng-click="ordenarPor('scout.CV')">CV</a></th>
+	          <th title="Jogos sem sofrer gols: +5,0pts" ng-show="exibirScoutsDefesa"><a href="" ng-click="ordenarPor('scout.SG')">SG</a></th>
+	          <th title="Defesa Difícil: +3,0pts" ng-show="exibirScoutsDefesa"><a href="" ng-click="ordenarPor('scout.DD')">DD</a></th>
+	          <th title="Defesa de pênalti: +7,0pts" ng-show="exibirScoutsDefesa"><a href="" ng-click="ordenarPor('scout.DP')">DP</a></th>
+	          <th title="Gol Sofrido: -2,0pts" ng-show="exibirScoutsDefesa"><a href="" ng-click="ordenarPor('scout.GS')">GS</a></th>
+	          <th title="Falta Sofrida: +0,5pts" ng-show="exibirScoutsAtaque"><a href="" ng-click="ordenarPor('scout.FS')">FS</a></th>
+	          <th title="Passe errado: -0,3pts" ng-show="exibirScoutsAtaque"><a href="" ng-click="ordenarPor('scout.PE')">PE</a></th>
+	          <th title="Assistência: +5,0pts" ng-show="exibirScoutsAtaque"><a href="" ng-click="ordenarPor('scout.A')">A</a></th>
+	          <th title="Finalização na trave: +3,5pts" ng-show="exibirScoutsAtaque"><a href="" ng-click="ordenarPor('scout.FT')">FT</a></th>
+	          <th title="Finalização defendida: +1,0pts" ng-show="exibirScoutsAtaque"><a href="" ng-click="ordenarPor('scout.FD')">FD</a></th>
+	          <th title="Finalização para fora: +0,7pts" ng-show="exibirScoutsAtaque"><a href="" ng-click="ordenarPor('scout.FF')">FF</a></th>
+	          <th title="Gol: +8,0pts" ng-show="exibirScoutsAtaque"><a href="" ng-click="ordenarPor('scout.G')">G</a></th>
+	          <th title="Impedimento: -0,5pts" ng-show="exibirScoutsAtaque"><a href="" ng-click="ordenarPor('scout.I')">I</a></th>
+	          <th title="Pênalti perdido: -3,5pts" ng-show="exibirScoutsAtaque"><a href="" ng-click="ordenarPor('scout.PP')">PP</a></th>	          
 	        </tr>
 	      </thead>
 	      <tbody>
 	        <tr ng-repeat="atleta in atletas | filter:search:strict | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao | start: (currentPage - 1) * pageSize | limitTo: pageSize">
-	          <td>
+	          <td class="text-center">
 	          	<img ng-src="{{atleta.clube_id | clube:clubes}}">
 	          </td>
-	          <td >
+	          <td>
 	            {{atleta.apelido}}
 	          </td>
-	          <td>
+	          <td class="text-center">
 	            {{atleta.status_id | status:status}} 
 	          </td>
-	          <td>
+	          <td class="text-center">
 	            {{atleta.posicao_id | posicao:posicoes | uppercase}} 
 	          </td>
-	          <td>
+	          <td class="text-center">
 	            {{atleta.media_num}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsDefesa">
 	            {{atleta.scout.RB | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsDefesa">
 	            {{atleta.scout.FC | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsDefesa">
 	            {{atleta.scout.GC | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsDefesa">
 	            {{atleta.scout.CA | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsDefesa">
 	            {{atleta.scout.CV | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsDefesa">
 	            {{atleta.scout.SG | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsDefesa">
 	            {{atleta.scout.DD | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsDefesa">
 	            {{atleta.scout.DP | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsDefesa">
 	            {{atleta.scout.GS | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsAtaque">
 	            {{atleta.scout.FS | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsAtaque">
 	            {{atleta.scout.PE | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsAtaque">
 	            {{atleta.scout.A | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsAtaque">
 	            {{atleta.scout.FT | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsAtaque">
 	            {{atleta.scout.FD | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsAtaque">
 	            {{atleta.scout.FF | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsAtaque">
 	            {{atleta.scout.G | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsAtaque">
 	            {{atleta.scout.I | nullToZero}}
 	          </td>
-	          <td>
+	          <td class="text-center" ng-show="exibirScoutsAtaque">
 	            {{atleta.scout.PP | nullToZero}}
 	          </td>
 	        </tr>
@@ -192,6 +184,11 @@
 		<uib-pagination total-items="atletas.length" items-per-page="pageSize" ng-model="currentPage" max-size="5" class="pagination-sm" rotate></uib-pagination>
 	</div>
   </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
   	<!--Angular-->
   	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
@@ -206,10 +203,5 @@
 	<script type="text/javascript" src="js/filters/statusFilter.js"></script>
 	<script type="text/javascript" src="js/filters/posicaoFilter.js"></script>
 	<script type="text/javascript" src="js/filters/nullToZeroFilter.js"></script>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

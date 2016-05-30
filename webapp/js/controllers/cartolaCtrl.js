@@ -1,16 +1,16 @@
-angular.module("cartola", ['ui.bootstrap']).controller("cartolaCtrl", function($scope, cartolaAPI, sessionstorage, util) {
+app.controller("cartolaCtrl", function($scope, cartolaAPI, sessionstorage, util) {
     $scope.app = "Lista Telefônica";
 
     var _mercado = {};
-    
+
     $scope.exibirScoutsDefesa = true;
     $scope.exibirScoutsAtaque = true;
     $scope.exibirScoutsNegativos = true;
     $scope.exibirScoutsPositivos = true;
-        
+
     $scope.currentPage = 1; // keeps track of the current page
     $scope.pageSize = 10; // holds the number of items per page
- 
+
     function isEmpty(obj) {
 
 	// null and undefined are "empty"
@@ -63,20 +63,37 @@ angular.module("cartola", ['ui.bootstrap']).controller("cartolaCtrl", function($
 
     $scope.ordenarPor = function(campo) {
 	$scope.criterioDeOrdenacao = function(atleta) {
-	    
+
 	    var valor = util.getObjectByPath(atleta, campo);
-	    
+
 	    return valor || 0;
 	};
 	$scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
     };
 
     carregarMercado();
-}).filter('start', function () {
-    return function (input, start) {
-        if (!input || !input.length) { return; }
 
-        start = +start;
-        return input.slice(start);
+    $(window).bind("load", function() {
+	var $table = $('.table');
+	// Make a clone of our table
+	var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
+
+	// Remove everything except for first column
+	$fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
+
+	// Match the height of the rows to that of the original table's
+	$fixedColumn.find('tr').each(function(i, elem) {
+	    $(this).height($table.find('tr:eq(' + i + ')').height());
+	});
+    });
+
+}).filter('start', function() {
+    return function(input, start) {
+	if (!input || !input.length) {
+	    return;
+	}
+
+	start = +start;
+	return input.slice(start);
     };
 });

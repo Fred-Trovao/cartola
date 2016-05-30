@@ -1,4 +1,4 @@
-angular.module("listaTelefonica").directive("uiAccordions", function () {
+app.directive("uiAccordions", function () {
 	return {
 		controller: function ($scope, $element, $attrs) {
 			var accordions = [];
