@@ -50,6 +50,7 @@ app.controller("cartolaCtrl", function($scope, cartolaAPI, sessionstorage, util)
 		$scope.posicoes = _mercado.posicoes;
 		$scope.status = _mercado.status;
 
+		
 	    }).error(function(data, status) {
 		$scope.error = "Não foi possivel carregar o mercado.";
 	    });
@@ -73,19 +74,19 @@ app.controller("cartolaCtrl", function($scope, cartolaAPI, sessionstorage, util)
 
     carregarMercado();
 
-    $(window).bind("load", function() {
-	var $table = $('.table');
-	// Make a clone of our table
-	var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
-
-	// Remove everything except for first column
-	$fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-
-	// Match the height of the rows to that of the original table's
-	$fixedColumn.find('tr').each(function(i, elem) {
-	    $(this).height($table.find('tr:eq(' + i + ')').height());
-	});
-    });
+//    $(window).bind("load", function() {
+//	var $table = $('.table');
+//	// Make a clone of our table
+//	var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
+//
+//	// Remove everything except for first column
+//	$fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
+//
+//	// Match the height of the rows to that of the original table's
+//	$fixedColumn.find('tr').each(function(i, elem) {
+//	    $(this).height($table.find('tr:eq(' + i + ')').height());
+//	});
+//    });
 
 }).filter('start', function() {
     return function(input, start) {
